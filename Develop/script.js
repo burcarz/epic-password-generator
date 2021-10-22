@@ -17,12 +17,12 @@ function writePassword() {
 };
 let passwordLength = function() {
 let characters = window.prompt("How many character's do you want your password to be?");
-        if (characters > 8 || characters < 128) {
-        console.log(characters);
-        return characters;
-
+let charLength = parseInt(characters);
+        if (charLength < 8 || charLength > 128) {
+        alert("The password needs to be between 8 and 128 characters!");
+        return passwordLength();
         } else {
-        window.alert("The password needs to be between 8 and 128 characters!");
+        return characters
 }
 }
 
@@ -41,26 +41,37 @@ let lowerSelect = function() {
     return(lowerCase);
 };
 
-
-let generatePassword = function() {
-  // use the passwordLength function to create a password of the desired length (string of letters)
-  let characterLength = passwordLength();
-
+let verifySelect = function() {
   let number = confirm("Would you like numbers in your password?");
 
   let special = confirm("Would you like special characters in your password?");
   if (special === true && number === true) {
     main = (letters += numbers += specialCharacters);
+    console.log(main);
+    return main
   }
   else if (special === true && number === false) {
     main = (letters += specialCharacters);
+    console.log(main);
+    return main
   }
   else if (number === true && special === false) {
     main = (letters += numbers);
+    console.log(main);
+    return main
   }
   else {
     main = letters;
+    console.log(main);
+    return main
   }
+}
+
+let generatePassword = function() {
+  // use the passwordLength function to create a password of the desired length (string of letters)
+  let characterLength = passwordLength();
+  let numberSpecial = verifySelect();
+
     let makeLength = function(length) {
     let result = '';
     var passwordLength = main.length;
