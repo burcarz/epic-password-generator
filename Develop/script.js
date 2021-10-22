@@ -1,109 +1,93 @@
-// Get references to the #generate element
+// Get references html elements
 let generateBtn = document.querySelector("#generate");
-let numbers = '1234567890';
-let specialCharacters = ['!@#$%^&*?'];
-let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-let main = (numbers + specialCharacters + letters);
-// let charactersLength = passwordLength();
+// calling html checkbox elements to avoid using alertboxes/prompts
+let length = document.getElementById("length");
+let getUpper = document.getElementById("uppercase");
+let getLower = document.getElementById("lowercase");
+let getNumbers = document.getElementById("numbers");
+let getSymbols = document.getElementById("symbols");
+
+// declaring strings incl- numbers, symbols and upr/lwr case letters
+let numbers = [false, '1234567890'];
+let symbols = [false, '!@#$%^&*?'];
+let upperCase = [false, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+let lowerCase = [true, 'abcdefghijklmnopqrstuvwxyz'];
+
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  // call the global letters variable characters
+  let characters = lowerCase;
+
+  // verify to see that the user has checked any of the checkboxes
+  // if (getLower.checked && getUpper.checked) {
+  //   characters = (characters += upperCase);
+  // }
+  // if (getUpper.checked && !getLower.checked) {
+  //   characters = (upperCase);
+  // }
+  // else {
+  //   characters = (characters);
+  // }
+
+  // if (getNumbers.checked && get.Symbols.checked) {
+  //   characters = ()
+  // }
+
+  // getNumbers.checked ? (characters += numbers) : "";
+  // getSymbols.checked ? (characters += symbols) : "";
+
+  let checkboxes = document.getElementsByName("checkbox");
+  let selected = [];
+  for (let i = 0; i<checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      selected.push(checkboxes[i].value);
+    }
+    console.log(checkboxes[i].value);
+    console.log(selected);
+  }
+  if (selected = 'on') {
+    console.log(true)
+  }
+  else if (selected = 'off') {
+    console.log(false);
+  }
+  console.log(checkboxes);
+
+  var password = generatePassword(length.value, characters);
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
-
-};
-let passwordLength = function() {
-let characters = window.prompt("How many character's do you want your password to be?");
-let charLength = parseInt(characters);
-        if (charLength < 8 || charLength > 128) {
-        alert("The password needs to be between 8 and 128 characters!");
-        return passwordLength();
-        } else {
-        return characters
-}
-}
-
-// ask the user if they'd like upper or lower case letters in their password
-let upperSelect = function () {
-  let upperCase = confirm("would you like uppercase letters in your password?");
-
-    console.log(upperCase);
-    return(upperCase);
-};
-
-let lowerSelect = function() {
-  let lowerCase = confirm("Would you like lowercase letters in your password?");
-
-    console.log(lowerCase);
-    return(lowerCase);
-};
-
-let verifySelect = function() {
-  let number = confirm("Would you like numbers in your password?");
-
-  let special = confirm("Would you like special characters in your password?");
-  if (special === true && number === true) {
-    main = (letters += numbers += specialCharacters);
-    console.log(main);
-    return main
-  }
-  else if (special === true && number === false) {
-    main = (letters += specialCharacters);
-    console.log(main);
-    return main
-  }
-  else if (number === true && special === false) {
-    main = (letters += numbers);
-    console.log(main);
-    return main
+  // checking to see if user is attempting to generate a password that is too small or too large
+  if (length.value < 8 || length.value > 128) {
+    passwordText.value = "You need at least one character type checked to generate a password!"
   }
   else {
-    main = letters;
-    console.log(main);
-    return main
+    passwordText.value = password;
   }
-}
-
-let generatePassword = function() {
-  // use the passwordLength function to create a password of the desired length (string of letters)
-  let characterLength = passwordLength();
-  let numberSpecial = verifySelect();
-
-    let makeLength = function(length) {
-    let result = '';
-    var passwordLength = main.length;
-    for ( let i = 0; i < length; i++) {
-      result += main.charAt(Math.floor(Math.random() * passwordLength));
+  // checking to see if all checkboxes are unchecked
+  if (!getLower.checked
+    && !getUpper.checked
+    && !getNumbers.checked
+    && !getSymbols.checked) {
+    passwordText.value = "You need at least one character type checked to generate a password!"
     }
-    console.log(result);
-    return result;
-  }
-  console.log(makeLength(passwordLength));
+    else {
+      passwordText.value = password;
+    }
 
-  // call the makeLength function, refer to as (password)details
-  let details = makeLength(passwordLength);
-  console.log(details);
+};
 
-  // lowercase and uppercase selection
-  let upper = upperSelect();
-  let lower = lowerSelect();
-  if (upper === true && lower === true) {
-    console.log(makeLength(characterLength));
-    return details;
+// A Math.random function that generates a random password based on user input
+let generatePassword = function(length, characters) {
+  // password starts as empty string
+  let password = "";
+  // for loop calls the length parameter (verified by user through the html form)
+  for (let i = 0; i < length; i++) {
+    // for loop calls the characters parameter
+    password += characters.charAt(Math.floor(Math.random() * characters.length)
+    );
   }
-
-  else if (upper === false && lower === true) {
-    console.log(details.toLowerCase());
-    return details.toLowerCase();
-  }
-
-  else if (upper === true && lower === false) {
-    console.log(details.toUpperCase());
-    return details.toUpperCase();
-  }
+  return password;
 }
 
 // Add event listener to generate button

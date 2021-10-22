@@ -30,6 +30,19 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+section {
+  padding: 20px;
+}
+
+.verify {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  margin: auto;
+  background-color: aqua;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
