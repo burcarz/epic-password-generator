@@ -36,10 +36,10 @@ let lowerCase = 'abcdefghijklmnopqrstuvwxyz';
 // checkBox function that checks which checkBoxes are checked!
 function checkBox() {
     // checks to see if the user has checked any of the 4 available check boxes
-    getLower.checked ? (full += lowerCase) : "" - lowerCase;
-    getUpper.checked ? (full += upperCase) : "" - upperCase;
-    getNumbers.checked ? (full += numbers) : "" - numbers,
-    getSymbols.checked ? (full += symbols) : "" - symbols,
+    getLower.checked ? (full += lowerCase) : "";
+    getUpper.checked ? (full += upperCase) : "";
+    getNumbers.checked ? (full += numbers) : "";
+    getSymbols.checked ? (full += symbols) : "";
 
       console.log(full);
       return full;
@@ -47,6 +47,8 @@ function checkBox() {
 
 // Write password to the #password input
 function writePassword() {
+  // create fresh instance of full incase user removed desired characters from new password.
+  full = '';
   // call the global letters variable characters
   let checker = checkBox();
   let characters = full;
@@ -56,7 +58,7 @@ function writePassword() {
   passwordText.value = generatePassword(length.value, characters);
 
   // checking to see if user is attempting to generate a password that is too small or too large
-  if (length < 8 || length > 128) {
+  if (length.value < 8 || length.value > 128) {
     // push new string reminding user to input a valid number option
     passwordText.value = "You need at least one character type checked to generate a password!";
   }
@@ -98,6 +100,7 @@ generateBtn.addEventListener("click", writePassword);
 
 // Event listener to refresh button
 refreshBtn.addEventListener("click", refreshPage);
+
 
 function refreshPage() {
   // let okRefresh = confirm("do you want to reset the password generator?");
