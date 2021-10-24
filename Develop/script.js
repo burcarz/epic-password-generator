@@ -41,7 +41,6 @@ function checkBox() {
     getNumbers.checked ? (full += numbers) : "";
     getSymbols.checked ? (full += symbols) : "";
 
-      console.log(full);
       return full;
 }
 
@@ -49,7 +48,8 @@ function checkBox() {
 function writePassword() {
   // create fresh instance of full incase user removed desired characters from new password.
   full = '';
-  // call the global letters variable characters
+
+  // call the global empty string full as characters
   let checker = checkBox();
   let characters = full;
 
@@ -57,14 +57,9 @@ function writePassword() {
   let passwordText = document.querySelector("#password");
   passwordText.value = generatePassword(length.value, characters);
 
-  // checking to see if user is attempting to generate a password that is too small or too large
   if (length.value < 8 || length.value > 128) {
     // push new string reminding user to input a valid number option
-    passwordText.value = "You need at least one character type checked to generate a password!";
-  }
-  else {
-    // reveal generated password
-    passwordText.value = password;
+    passwordText.value = "Passwords must be between 8 and 128 characters";
   }
   // checking to see if all checkboxes are unchecked
   if (!getLower.checked
@@ -74,11 +69,7 @@ function writePassword() {
       // push new string to take html placeholder text's place 
     passwordText.value = "You need at least one character type checked to generate a password!";
     }
-    else {
-      // reveal generated password.
-      passwordText.value = password;
-    }
-
+    console.log(full);
 };
 
 // A Math.random function that generates a random password based on user input
@@ -95,6 +86,7 @@ let generatePassword = (length, characters) => {
   }
   return password;
 };
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
