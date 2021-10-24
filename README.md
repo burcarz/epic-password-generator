@@ -1,4 +1,4 @@
-# an alert/prompt box free password generator. Giving the user all possible password options up front.
+# An alert/prompt box free password generator. Giving the user all possible password options up front.
 
 I was asked to create a password generator for class that allows the user to select a variety of options that will determine the outputted password.
 
